@@ -1,5 +1,3 @@
-require 'console'
-
 class ColorsView
   def initialize(selector = 'body.controller-colors', parent = Element)
     @element = parent.find(selector)
@@ -14,14 +12,20 @@ class ColorsView
   end
 
   def say_hello_when_a_link_is_clicked
-    all_links.on :click do |event|
-      # Use prevent_default to stop default behavior (as you would do in jQuery)
-      # event.prevent_default
-      puts "Hello! (You just clicked on a link: #{event.current_target.text})"
+    # 这是给所有的 a 元素, 逐个绑定事件.(需要绑定很多事件)
+    # 这种情况下,  evt.target 和 evt.current_target 是一样的.
+    # element.find('a').on :click do |evt|
+    #   $console.log "Hello! (You just clicked on a link: #{evt.current_target.text})"
+    # end
+
+    # 这是给 element 绑定了一个事件而已.
+    # 这种情况下, 经过测试, 为什么两者还是一样的?
+    element.on :click, 'a' do |evt|
+      $console.log "Hello! (You just clicked on a link: #{evt.current_target.text})"
     end
   end
+end
 
-  def all_links
-    @all_links ||= element.find('a')
-  end
+Document.ready? do
+  ColorsView.new
 end

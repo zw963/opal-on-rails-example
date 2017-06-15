@@ -1,11 +1,11 @@
 require 'rails-ujs'
-require 'turbolinks'
+# require 'turbolinks'
 require 'opal'
 require 'jquery'
 require 'opal-jquery'
-# require 'opal-jquery-ujs'
+require 'console'
 require_tree '.'
 
 Document.ready? do
-  ColorsView.new
+  $console.log 'hello!'
 end
